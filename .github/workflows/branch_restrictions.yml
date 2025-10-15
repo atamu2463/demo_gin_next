@@ -17,27 +17,27 @@ jobs:
 
       - name: "ブランチ制限チェック"
         run: |
-          TARGET_BRANCH = "${{ github.event.pull_request.base.ref }}"
-          SOURCE_BRANCH = "${{ github.event.pull_request.head.ref }}"
+          TARGET_BRANCH="${{ github.event.pull_request.base.ref }}"
+          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
 
           echo "ターゲットブランチ: $TARGET_BRANCH"
           echo "ソースブランチ: $SOURCE_BRANCH"
 
-          if [["$TARGET_BRANCH" == "main" ]]; then
-            if [["$SOURCE_BRANCH" != "develop"]]; then
+          if [[ $TARGET_BRANCH == "main" ]]; then
+            if [[ $SOURCE_BRANCH != "develop"]]; then
               echo "エラー：mainブランチへのPRはdevelopブランチからのみ可能です。"
               echo "まずdevelopブランチにPRを出してください"
               exit 1
             else
               echo "正常：developブランチからのPRです"
             fi
-          elif [["TARGET_BRANCH" == "develop"]]; then
+          elif [[ TARGET_BRANCH == "develop"]]; then
             echo "正常：developブランチへのPRです"
           fi
       
       - name: "PR情報を表示"
         run: |
-          ecno "PR情報"
+          echo "PR情報"
           echo " - ブランチ: ${{github.event.pull_request.head.ref}} => ${{github.event.pull_request.base.ref}}"
           echo " - タイトル: ${{github.event.pull_request.title}}"
           echo " - 作成者: ${{github.event.pull_request.user.login}}"
