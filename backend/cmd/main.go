@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/atamu2463/demo_gin_next/handlers"
 	"github.com/atamu2463/demo_gin_next/repositories"
 	"github.com/gin-gonic/gin"
 )
@@ -11,12 +12,9 @@ func main() {
 
 	repositories.InitDB()
 
-	// //goodと送るとmorningと返すAPIを作成
-	// r.GET("/good", func(c *gin.Context) {
-	// 	c.JSON(200, gin.H{
-	// 		"message": "morning",
-	// 	})
-	// })
+	//ルーティング設定
+	r.POST("/todos", handlers.CreateTodo)
+	r.GET("/todos", handlers.GetTodos)
 
 	//サーバーを起動
 	r.Run(":8080")
