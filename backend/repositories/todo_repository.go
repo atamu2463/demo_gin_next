@@ -1,16 +1,10 @@
 package repositories
 
 import (
+	"github.com/atamu2463/demo_gin_next/domain"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
-
-// Todoモデル
-type Todo struct {
-	gorm.Model
-	Titie     string `gorm: type:string; not null`
-	completed bool   `gorm: type:boolean; not null; default:false`
-}
 
 var db *gorm.DB
 
@@ -22,5 +16,5 @@ func InitDB() {
 		panic("DB接続に失敗しました")
 	}
 	//テーブルがなければ自動作成
-	db.AutoMigrate(&Todo{})
+	db.AutoMigrate(&domain.Todo{})
 }
