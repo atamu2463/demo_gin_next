@@ -6,15 +6,16 @@ import (
 	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+var DB *gorm.DB
 
 // DB初期化
 func InitDB() {
 	var err error
-	db, err = gorm.Open(postgres.Open("demo_gin_next"), &gorm.Config{})
+	dsn := "host=localhost user=postgres dbname=demo_gin_next password=demo_gin_next port=5432 sslmode=disable TimeZone=Asia/Tokyo"
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("DB接続に失敗しました")
 	}
 	//テーブルがなければ自動作成
-	db.AutoMigrate(&domain.Todo{})
+	DB.AutoMigrate(&domain.Todo{})
 }
